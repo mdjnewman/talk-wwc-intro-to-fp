@@ -42,8 +42,8 @@
           - Comparision of different paradigms
           - What is functional programming?
           - Purity
-          - Laziness
-          - Concurrency
+          - Declarative programming
+          - Immutability
           </script>
         </section>
         <section data-markdown>
@@ -52,8 +52,9 @@
 
           - Type theory
           - Category theory
+          - Laziness
 
-          (though I think both are awesome, so come talk to me afterwards if
+          (though I think all are awesome, so come talk to me afterwards if
           you'd like)
           </script>
         </section>
@@ -130,6 +131,9 @@
             Programming with functions!
             </script>
           </section>
+          <section>
+            <img data-src="f-of-x.jpg" style="background-color:white;"/>
+          </section>
           <section data-markdown>
             <script type="text/template">
             > A style of building the structure and elements of computer
@@ -137,6 +141,33 @@
             > mathematical functions and avoids state and mutable data
 
             <small>https://en.wikipedia.org/wiki/Functional_programming</small>
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            ### What doesn't it look like?
+            ```
+            function calculateTax(amount) {
+              var taxRate = db.getTaxRate();
+              return taxRate / amount * 100;
+            }
+            ```
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            ### What doesn't it look like?
+            ```
+            function calculateTax(amount) {
+              db.saveTaxRate(taxRate);
+              return taxRate / amount * 100;
+            }
+            ```
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            The above snippets of code aren't 'pure' ...
             </script>
           </section>
         </section>
@@ -152,21 +183,137 @@
           </section>
           <section data-markdown>
             <script type="text/template">
-            Every input term has exactly one output term.
-            <p class="fragment">Same arguments in === same result</p>
+            Same arguments in === same result
             <p class="fragment">No side effects!</p>
             </script>
           </section>
           <section data-markdown>
             <script type="text/template">
-            ### Why?
-            Easier to design, test and understand
+            ### An example ...
+            Let's write some code to double every number in a list:
 
-            Referential transparency
+            <pre class="fragment highlight">
+            function multiplyByTwo (numbers) {
+              for(var i = 0; i < numbers.length; i++) {
+                numbers[i] = numbers[i] * 2
+              }
+              return numbers
+            }
+            </pre>
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            ### An example ...
+            <pre class="highlight">
+            var oneToFive = [1, 2, 3, 4, 5]
+            var doubled = multiplyByTwo(oneToFive)
+            console.log(doubled)   // prints '[2, 4, 6, 8, 10]'  ...  :)
+            <span class="fragment">console.log(oneToFive) // prints '[2, 4, 6, 8, 10]'  ...  :(</span>
+            </pre>
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            ### An example ...
+            <pre class="highlight">
+            function multiplyByTwo (numbers) {
+              var destination = []
+              for(var i = 0; i < numbers.length; i++) {
+                destination.push(numbers[i] * 2)
+              }
+              return destination
+            }
+            </pre>
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            ### An example ...
+            <pre class="highlight">
+            var oneToFive = [1, 2, 3, 4, 5]
+            var doubled = multiplyByTwo(oneToFive)
+            console.log(doubled)   // prints '[2, 4, 6, 8, 10]'  ...  :)
+            console.log(oneToFive) // prints '[1, 2, 3, 4, 5]'   ...  :)
+            </pre>
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            Pure functions easier to design, test and understand
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            #### Referential transparency
+```
+function getMeACoffee() {
+  // ...
+}
 
-            <p class="fragment">-> optimisations</p>
+var coffee1 = getMeACoffee()
+var coffee2 = getMeACoffee()
+var coffee3 = getMeACoffee()
+```
 
-            <p class="fragment">-> laziness</p>
+Note:
+Referential transparency means that an expression always evaluates to the same
+result in any context, so you can replace an expression with it's value
+anywhere you see the expression
+
+This makes it very easy to debug programs, as you can easily make subtitutions
+and be sure that you haven't changed the outcome of your program.
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            #### Referential transparency
+```
+function getMeACoffee() {
+  // ...
+}
+
+var coffee1 = getMeACoffee()
+var coffee2 = coffee1
+var coffee3 = coffee1
+```
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            #### Referential transparency
+```javascript
+function getMeACoffee() {
+  val cup = new Coffee()
+  creditCard.charge(cup.price)
+  return cup
+}
+
+var coffee1 = getMeACoffee()
+var coffee2 = coffee1
+var coffee3 = coffee1
+```
+<span class="fragment">Free coffee!</span>
+
+Note:
+So if `getMeACoffee` performs side effects, it's not longer referentially
+transparent, and you can't use the substitution model to reason about the
+evaluation of your program.
+            </script>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Common higher-order functions</h2>
+          </section>
+          <section data-markdown>
+            A higher order function is one that takes one or more functions as
+            input, or returns a function.
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+
             </script>
           </section>
         </section>
@@ -181,27 +328,50 @@
             ```javascript
             var n = 1;
             var num_elements = 0;
-            var sum_of_first_10 = 0;
+            var sum_of_first_10_squares = 0;
 
             while (num_elements < 10) {
-              if ((n * n) % 5 == 0) {
-                sum_of_first_10 += (n * n);
-                num_elements += 1;
-              }
+              sum_of_first_10_squares += (n * n);
+              num_elements += 1;
               n += 1;
             }
 
-            console.log(sum_of_first_10) // 9625
+            console.log(sum_of_first_10_squares)
             ```
+            </script>
+          </section>
+          <section>
+            <p>How about this?</p>
+            <pre class="highlight haskell">
+<span class="fragment" data-fragment-index=0>map (^2) [1..]</span><span class="fragment" data-fragment-index=2>  |> take 10 </span><span class="fragment" data-fragment-index=3> |> sum </span></pre>
+            <small>(apologies for the Haskell/F# syntax)</small>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ### Why
+
+              We're telling the computer what we want, and not how to get it
             </script>
           </section>
           <section data-markdown>
             <script type="text/template">
-            How about this?
-            ```haskell
-            sum . take 10 . filter (\x -> x `mod` 5 == 0) $ map (^2) [1..]
-            ```
-            <small>(apologies for the Haskell syntax)</small>
+              ### Why
+
+              Abstract away concepts of iteration, transformation, filtering, and accumulation
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ### Why
+
+              Write functions to deal with elements, and not a sequence
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ### Why
+
+              Small independently testable functions are more maintainable
             </script>
           </section>
         </section>
