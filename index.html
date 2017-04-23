@@ -31,7 +31,7 @@
           # Introduction to functional programming
 
           <small>Created by [Matt Newman](http://mdjnewman.me/) for the April
-          2016 [Women Who Code Brisbane](https://www.meetup.com/Women-Who-Code-Brisbane/)
+          2017 [Women Who Code Brisbane](https://www.meetup.com/Women-Who-Code-Brisbane/)
           meetup</small>
           </script>
         </section>
@@ -42,26 +42,30 @@
           - Comparision of different paradigms
           - What is functional programming?
           - Purity
+          - Common higher-order functions
           - Declarative programming
-          - Immutability
           </script>
         </section>
         <section data-markdown>
           <script type="text/template">
           ## What I won't be talking about
 
-          - Type theory
-          - Category theory
+          - Type/category theory
           - Laziness
+          - Immutabilty (much)
 
-          (though I think all are awesome, so come talk to me afterwards if
-          you'd like)
+          <small>I do think all these things are awesome, so come talk to me
+          afterwards if you'd like</small>
           </script>
         </section>
         <section>
           <section data-markdown>
             <script type="text/template">
             ## What are 'paradigms'?
+
+            Note:
+            A paradigm is a style of building the structure and elements of
+            computer programs.
             </script>
           </section>
           <section data-markdown>
@@ -81,7 +85,7 @@
             <script type="text/template">
             ### Prodecural
 
-            BASIC and C are notable examples, they provide basic looping and
+            Structued BASIC and C are notable examples, they provide looping and
             subroutines.
 
             *Why?*
@@ -136,8 +140,8 @@
           </section>
           <section data-markdown>
             <script type="text/template">
-            > A style of building the structure and elements of computer
-            > programs, that treats computation as the evaluation of
+            > Functional programming is a programming paradigm
+            > that treats computation as the evaluation of
             > mathematical functions and avoids state and mutable data
 
             <small>https://en.wikipedia.org/wiki/Functional_programming</small>
@@ -148,8 +152,8 @@
             ### What doesn't it look like?
             ```
             function calculateTax(amount) {
-              var taxRate = db.getTaxRate();
-              return taxRate / amount * 100;
+              var taxRate = db.getTaxRate()
+              return taxRate / amount * 100
             }
             ```
             </script>
@@ -159,15 +163,16 @@
             ### What doesn't it look like?
             ```
             function calculateTax(amount) {
-              db.saveTaxRate(taxRate);
-              return taxRate / amount * 100;
+              var tax = taxRate / amount * 100
+              db.addTotalTax(tax)
+              return tax
             }
             ```
             </script>
           </section>
           <section data-markdown>
             <script type="text/template">
-            The above snippets of code aren't 'pure' ...
+            The above snippets of code aren't 'pure functions' ...
             </script>
           </section>
         </section>
@@ -208,8 +213,8 @@
             <pre class="highlight">
             var oneToFive = [1, 2, 3, 4, 5]
             var doubled = multiplyByTwo(oneToFive)
-            console.log(doubled)   // prints '[2, 4, 6, 8, 10]'  ...  :)
-            <span class="fragment">console.log(oneToFive) // prints '[2, 4, 6, 8, 10]'  ...  :(</span>
+            console.log(doubled)   // -> '[2, 4, 6, 8, 10]'  ...  :)
+            <span class="fragment">console.log(oneToFive) // -> '[2, 4, 6, 8, 10]'  ...  :(</span>
             </pre>
             </script>
           </section>
@@ -233,8 +238,8 @@
             <pre class="highlight">
             var oneToFive = [1, 2, 3, 4, 5]
             var doubled = multiplyByTwo(oneToFive)
-            console.log(doubled)   // prints '[2, 4, 6, 8, 10]'  ...  :)
-            console.log(oneToFive) // prints '[1, 2, 3, 4, 5]'   ...  :)
+            console.log(doubled)   // -> '[2, 4, 6, 8, 10]'  ...  :)
+            console.log(oneToFive) // -> '[1, 2, 3, 4, 5]'   ...  :)
             </pre>
             </script>
           </section>
@@ -247,18 +252,18 @@
             <script type="text/template">
             #### Referential transparency
 ```
-function getMeACoffee() {
+function getMeATea() {
   // ...
 }
 
-var coffee1 = getMeACoffee()
-var coffee2 = getMeACoffee()
-var coffee3 = getMeACoffee()
+var tea1 = getMeATea()
+var tea2 = getMeATea()
+var tea3 = getMeATea()
 ```
 
 Note:
 Referential transparency means that an expression always evaluates to the same
-result in any context, so you can replace an expression with it's value
+result in any context, so you can replace an expression with its value
 anywhere you see the expression
 
 This makes it very easy to debug programs, as you can easily make subtitutions
@@ -269,52 +274,126 @@ and be sure that you haven't changed the outcome of your program.
             <script type="text/template">
             #### Referential transparency
 ```
-function getMeACoffee() {
+function getMeATea() {
   // ...
 }
 
-var coffee1 = getMeACoffee()
-var coffee2 = coffee1
-var coffee3 = coffee1
+var tea1 = getMeATea()
+var tea2 = tea1
+var tea3 = tea1
 ```
             </script>
           </section>
           <section data-markdown data-transition="none">
             <script type="text/template">
             #### Referential transparency
-```javascript
-function getMeACoffee() {
-  val cup = new Coffee()
-  creditCard.charge(cup.price)
-  return cup
-}
+            ```javascript
+            function getMeATea() {
+              val cup = new Tea()
+              creditCard.charge(cup.price)
+              return cup
+            }
 
-var coffee1 = getMeACoffee()
-var coffee2 = coffee1
-var coffee3 = coffee1
-```
-<span class="fragment">Free coffee!</span>
+            var tea1 = getMeATea()
+            var tea2 = tea1
+            var tea3 = tea1
+            ```
+            <span class="fragment">Free tea?!</span>
 
-Note:
-So if `getMeACoffee` performs side effects, it's not longer referentially
-transparent, and you can't use the substitution model to reason about the
-evaluation of your program.
+            Note:
+            So if `getMeATea` performs side effects, it's not longer referentially
+            transparent, and you can't use the substitution model to reason about the
+            evaluation of your program.
             </script>
           </section>
         </section>
 
         <section>
-          <section>
-            <h2>Common higher-order functions</h2>
-          </section>
           <section data-markdown>
-            A higher order function is one that takes one or more functions as
-            input, or returns a function.
+            <script type="text/template">
+            ## `multiplyByTwo` revisited
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            ```javascript
+            function multiplyByTwo (input) {
+              var destination = []
+              for(var i = 0; i < input.length; i++) {
+                destination.push(input[i] * 2)
+              }
+              return destination
+            }
+
+            console.log(multiplyByTwo([1, 2, 3, 4, 5]))
+              // -> '[2, 4, 6, 8, 10]'
+            ```
+
+            Note:
+            This is now a pure function, in that its output depends solely on its
+            input and it has no side effects observable from outside the function.
+
+            But, there is state here - `destination` and `i` are mutated.
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            ```javascript
+            function shout (input) {
+              var destination = []
+              for(var i = 0; i < input.length; i++) {
+                destination.push(input[i].toUpperCase() + "!")
+              }
+              return destination
+            }
+
+            console.log(shout(["just", "some", "words"]))
+              // -> '["JUST!", "SOME!", "WORDS!"]'
+            ```
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            ```
+            function map (input, fn) {
+              var destination = []
+              for(var i = 0; i < input.length; i++) {
+                destination.push(fn(input[i]))
+              }
+              return destination
+            }
+            ```
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            ```javascript
+            console.log(map(["a", "b", "c", "d", "e"],  function (i) {
+              return i.toUpperCase() + "!"
+            }))  // -> ["A!", "B!", "C!", "D!", "E!"]
+
+            console.log(map([1, 2, 3, 4, 5],  function (i) {
+              return i * 2
+            }))  // -> [2, 4, 6, 8, 10]
+            ```
+            </script>
           </section>
           <section data-markdown>
             <script type="text/template">
+            A higher order function is one that takes one or more functions as
+            input, or returns a function.
 
+            Note:
+            Higher order functions all us to be more declarative in our code,
+            we just say 'apply this function to the elements in this list',
+            rather than specifying exactly how that should happen.
             </script>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            ## Common higher-order functions
           </section>
         </section>
 
@@ -328,28 +407,26 @@ evaluation of your program.
             ```javascript
             var n = 1;
             var num_elements = 0;
-            var sum_of_first_10_squares = 0;
+            var result = 0;
 
             while (num_elements < 10) {
-              sum_of_first_10_squares += (n * n);
+              result += (n * n);
               num_elements += 1;
               n += 1;
             }
 
-            console.log(sum_of_first_10_squares)
+            console.log(result) // -> 385
             ```
             </script>
           </section>
           <section>
             <p>How about this?</p>
             <pre class="highlight haskell">
-<span class="fragment" data-fragment-index=0>map (^2) [1..]</span><span class="fragment" data-fragment-index=2>  |> take 10 </span><span class="fragment" data-fragment-index=3> |> sum </span></pre>
+<span class="fragment" data-fragment-index=0>[1..]</span><span class="fragment" data-fragment-index=1>  |> map (^2)</span><span class="fragment" data-fragment-index=2>  |> take 10</span><span class="fragment" data-fragment-index=3>  |> sum</span><span class="fragment" data-fragment-index=4>  |> print</span></pre>
             <small>(apologies for the Haskell/F# syntax)</small>
           </section>
           <section data-markdown>
             <script type="text/template">
-              ### Why
-
               We're telling the computer what we want, and not how to get it
             </script>
           </section>
@@ -357,21 +434,21 @@ evaluation of your program.
             <script type="text/template">
               ### Why
 
-              Abstract away concepts of iteration, transformation, filtering, and accumulation
+              We abstract away concepts of iteration, transformation, filtering, and accumulation
             </script>
           </section>
           <section data-markdown>
             <script type="text/template">
               ### Why
 
-              Write functions to deal with elements, and not a sequence
+              We can write functions to deal with elements, and not a collection
             </script>
           </section>
           <section data-markdown>
             <script type="text/template">
               ### Why
 
-              Small independently testable functions are more maintainable
+              We get small independently testable functions are more maintainable
             </script>
           </section>
         </section>
