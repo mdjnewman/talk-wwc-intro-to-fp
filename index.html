@@ -151,7 +151,7 @@
             <script type="text/template">
             ### What doesn't it look like?
             ```
-            function calculateTax(amount) {
+            const calculateTax = (amount) => {
               var taxRate = db.getTaxRate()
               return taxRate / amount * 100
             }
@@ -162,7 +162,7 @@
             <script type="text/template">
             ### What doesn't it look like?
             ```
-            function calculateTax(amount) {
+            const calculateTax = (amount, taxRate) => {
               var tax = taxRate / amount * 100
               db.addTotalTax(tax)
               return tax
@@ -192,25 +192,27 @@
             <p class="fragment">No side effects!</p>
             </script>
           </section>
-          <section data-markdown>
-            <script type="text/template">
-            ### An example ...
-            Let's write some code to double every number in a list:
-
-            <pre class="fragment highlight">
-            function multiplyByTwo (numbers) {
-              for(var i = 0; i < numbers.length; i++) {
-                numbers[i] = numbers[i] * 2
+          <section>
+            <h3>An example ...</h3>
+            <p>Let's write some code to double every number in a list:<p>
+            <div class="fragment" data-markdown>
+              <script type="text/template">
+              ```javascript
+              const multiplyByTwo = (numbers) => {
+                for(var i = 0; i < numbers.length; i++) {
+                  numbers[i] = numbers[i] * 2
+                }
+                return numbers
               }
-              return numbers
-            }
-            </pre>
+              ```
+              </script>
+            </div>
             </script>
           </section>
           <section data-markdown>
             <script type="text/template">
             ### An example ...
-            <pre class="highlight">
+            <pre class="highlight javascript">
             var oneToFive = [1, 2, 3, 4, 5]
             var doubled = multiplyByTwo(oneToFive)
             console.log(doubled)   // -> '[2, 4, 6, 8, 10]'  ...  :)
@@ -221,8 +223,8 @@
           <section data-markdown>
             <script type="text/template">
             ### An example ...
-            <pre class="highlight">
-            function multiplyByTwo (numbers) {
+            <pre class="highlight javascript">
+            const multiplyByTwo = (numbers) => {
               var destination = []
               for(var i = 0; i < numbers.length; i++) {
                 destination.push(numbers[i] * 2)
@@ -235,7 +237,7 @@
           <section data-markdown>
             <script type="text/template">
             ### An example ...
-            <pre class="highlight">
+            <pre class="highlight javascript">
             var oneToFive = [1, 2, 3, 4, 5]
             var doubled = multiplyByTwo(oneToFive)
             console.log(doubled)   // -> '[2, 4, 6, 8, 10]'  ...  :)
@@ -245,50 +247,50 @@
           </section>
           <section data-markdown>
             <script type="text/template">
-            Pure functions easier to design, test and understand
-            </script>
-          </section>
-          <section data-markdown data-transition="none">
-            <script type="text/template">
-            #### Referential transparency
-```
-function getMeATea() {
-  // ...
-}
-
-var tea1 = getMeATea()
-var tea2 = getMeATea()
-var tea3 = getMeATea()
-```
-
-Note:
-Referential transparency means that an expression always evaluates to the same
-result in any context, so you can replace an expression with its value
-anywhere you see the expression
-
-This makes it very easy to debug programs, as you can easily make subtitutions
-and be sure that you haven't changed the outcome of your program.
-            </script>
-          </section>
-          <section data-markdown data-transition="none">
-            <script type="text/template">
-            #### Referential transparency
-```
-function getMeATea() {
-  // ...
-}
-
-var tea1 = getMeATea()
-var tea2 = tea1
-var tea3 = tea1
-```
+            Pure functions are easier to design, test and understand
             </script>
           </section>
           <section data-markdown data-transition="none">
             <script type="text/template">
             #### Referential transparency
             ```javascript
-            function getMeATea() {
+            const getMeATea = () => {
+              // ...
+            }
+
+            var tea1 = getMeATea()
+            var tea2 = getMeATea()
+            var tea3 = getMeATea()
+            ```
+
+            Note:
+            Referential transparency means that an expression always evaluates to the same
+            result in any context, so you can replace an expression with its value
+            anywhere you see the expression
+
+            This makes it very easy to debug programs, as you can easily make subtitutions
+            and be sure that you haven't changed the outcome of your program.
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            #### Referential transparency
+            ```javascript
+            const getMeATea = () => {
+              // ...
+            }
+
+            var tea1 = getMeATea()
+            var tea2 = tea1
+            var tea3 = tea1
+            ```
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            #### Referential transparency
+            ```javascript
+            const getMeATea = () => {
               val cup = new Tea()
               creditCard.charge(cup.price)
               return cup
@@ -317,7 +319,7 @@ var tea3 = tea1
           <section data-markdown data-transition="none">
             <script type="text/template">
             ```javascript
-            function multiplyByTwo (input) {
+            const multiplyByTwo = (input) => {
               var destination = []
               for(var i = 0; i < input.length; i++) {
                 destination.push(input[i] * 2)
@@ -339,7 +341,7 @@ var tea3 = tea1
           <section data-markdown data-transition="none">
             <script type="text/template">
             ```javascript
-            function shout (input) {
+            const shout = (input) => {
               var destination = []
               for(var i = 0; i < input.length; i++) {
                 destination.push(input[i].toUpperCase() + "!")
@@ -355,7 +357,7 @@ var tea3 = tea1
           <section data-markdown data-transition="none">
             <script type="text/template">
             ```
-            function map (input, fn) {
+            const map = (input, fn) => {
               var destination = []
               for(var i = 0; i < input.length; i++) {
                 destination.push(fn(input[i]))
@@ -368,13 +370,15 @@ var tea3 = tea1
           <section data-markdown data-transition="none">
             <script type="text/template">
             ```javascript
-            console.log(map(["a", "b", "c", "d", "e"],  function (i) {
-              return i.toUpperCase() + "!"
-            }))  // -> ["A!", "B!", "C!", "D!", "E!"]
+            console.log(
+              map(["a", "b", "c", "d", "e"], i => i.toUpperCase() + "!")
+            )
+            // -> ["A!", "B!", "C!", "D!", "E!"]
 
-            console.log(map([1, 2, 3, 4, 5],  function (i) {
-              return i * 2
-            }))  // -> [2, 4, 6, 8, 10]
+            console.log(
+              map([1, 2, 3, 4, 5], i => return i * 2)
+            )
+            // -> [2, 4, 6, 8, 10]
             ```
             </script>
           </section>
