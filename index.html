@@ -52,7 +52,6 @@
 
           - Type/category theory
           - Laziness
-          - Immutabilty (much)
 
           <small>I do think all these things are awesome, so come talk to me
           afterwards if you'd like</small>
@@ -397,13 +396,59 @@
 
         <section>
           <section data-markdown>
+            <script type="text/template">
             ## Common higher-order functions
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            **`map`** is the name of a higher-order function that applies a given
+            function to each element of a list, returning a list of results
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            **`filter`** is a higher-order function that processes a collection to produce
+            a new collection containing exactly those elements of the original collection
+            for which a given predicate returns true
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            ```javascript
+            console.log([1, 2, 3, 4].filter(i => i % 2 == 0))
+            // -> [2, 4]
+            ```
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            *`fold`* / *`reduce`* / *`aggregate`* are a family of higher-order functions that
+            analyse a recursive data structure and recombine through use of a given
+            combining operation the results of recursively processing its constituent
+            parts, building up a return value
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            ```javascript
+            console.log(
+              [1, 2, 3, 4, 5].reduce(
+                (accumulator, i) => accumulator + i,
+                0
+              )
+            )
+            // -> 15
+            ```
+            </script>
           </section>
         </section>
 
         <section>
           <section data-markdown>
+            <script type="text/template">
             ## Declarative programming
+            </script>
           </section>
           <section data-markdown>
             <script type="text/template">
