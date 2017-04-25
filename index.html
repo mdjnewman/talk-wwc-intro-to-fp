@@ -51,7 +51,7 @@
           ## What I won't be talking about
 
           - Type/category theory
-          - Laziness
+          - Lazy evaluation
 
           <small>I do think all these things are awesome, so come talk to me
           afterwards if you'd like</small>
@@ -84,7 +84,7 @@
             <script type="text/template">
             ### Prodecural
 
-            Structued BASIC and C are notable examples, they provide looping and
+            Structured BASIC and C are notable examples, they provide looping and
             subroutines.
 
             *Why?*
@@ -115,10 +115,8 @@
             To allow us to abstract away all state.
             </script>
           </section>
-          <section data-markdown>
-            <script type="text/template">
-            Many languages allow the use of multiple paradigms simultaneously.
-            </script>
+          <section>
+            <img data-src="javascript-wikipedia.png">
           </section>
         </section>
 
@@ -143,6 +141,11 @@
             > mathematical functions and avoids state and mutable data
 
             <small>https://en.wikipedia.org/wiki/Functional_programming</small>
+
+            Note:
+            * By the strictest definition, functional programming is just
+              programming with pure mathmatical functions, where the output
+              of a piece of code depends solely on the inputs to that code
             </script>
           </section>
           <section data-markdown>
@@ -368,15 +371,17 @@
           <section data-markdown data-transition="none">
             <script type="text/template">
             ```javascript
-            console.log(
-              map(["a", "b", "c", "d", "e"], i => i.toUpperCase() + "!")
-            )
-            // -> ["A!", "B!", "C!", "D!", "E!"]
+            const shout = (input) =>
+              map(
+                input,
+                i => i.toUpperCase() + "!"
+              )
 
-            console.log(
-              map([1, 2, 3, 4, 5], i => return i * 2)
-            )
-            // -> [2, 4, 6, 8, 10]
+            const multiplyByTwo = (input) =>
+              map(
+                input,
+                i => return i * 2)
+              )
             ```
             </script>
           </section>
@@ -422,10 +427,8 @@
           </section>
           <section data-markdown>
             <script type="text/template">
-            *`fold`* / *`reduce`* / *`aggregate`* are a family of higher-order functions that
-            analyse a recursive data structure and recombine through use of a given
-            combining operation the results of recursively processing its constituent
-            parts, building up a return value
+            *`reduce`* is a higher-order function that recombines elements of a
+            collection through use of a given combining operation
             </script>
           </section>
           <section data-markdown>
@@ -481,13 +484,6 @@
               ### Why
 
               We abstract away concepts of iteration, transformation, filtering, and accumulation
-            </script>
-          </section>
-          <section data-markdown>
-            <script type="text/template">
-              ### Why
-
-              We can write functions to deal with elements, and not a collection
             </script>
           </section>
           <section data-markdown>
