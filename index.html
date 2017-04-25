@@ -202,7 +202,7 @@
             <div class="fragment" data-markdown>
               <script type="text/template">
               ```javascript
-              const multiplyByTwo = (numbers) => {
+              const timesTwo = (numbers) => {
                 for(let i = 0; i < numbers.length; i++) {
                   numbers[i] = numbers[i] * 2
                 }
@@ -218,7 +218,7 @@
             ### An example ...
             <pre class="highlight javascript">
             let oneToFive = [1, 2, 3, 4, 5]
-            let doubled = multiplyByTwo(oneToFive)
+            let doubled = timesTwo(oneToFive)
             console.log(doubled)   // -> '[2, 4, 6, 8, 10]'  ...  :)
             <span class="fragment">console.log(oneToFive) // -> '[2, 4, 6, 8, 10]'  ...  :(</span>
             </pre>
@@ -228,7 +228,7 @@
             <script type="text/template">
             ### An example ...
             <pre class="highlight javascript">
-            const multiplyByTwo = (numbers) => {
+            const timesTwo = (numbers) => {
               let destination = []
               for(let i = 0; i < numbers.length; i++) {
                 destination.push(numbers[i] * 2)
@@ -243,7 +243,7 @@
             ### An example ...
             <pre class="highlight javascript">
             let oneToFive = [1, 2, 3, 4, 5]
-            let doubled = multiplyByTwo(oneToFive)
+            let doubled = timesTwo(oneToFive)
             console.log(doubled)   // -> '[2, 4, 6, 8, 10]'  ...  :)
             console.log(oneToFive) // -> '[1, 2, 3, 4, 5]'   ...  :)
             </pre>
@@ -314,13 +314,13 @@
           </section>
           <section data-markdown>
             <script type="text/template">
-            #### `multiplyByTwo` revisited
+            #### `timesTwo` revisited
             </script>
           </section>
           <section data-markdown data-transition="none">
             <script type="text/template">
             ```javascript
-            const multiplyByTwo = (input) => {
+            const timesTwo = (input) => {
               let destination = []
               for(let i = 0; i < input.length; i++) {
                 destination.push(input[i] * 2)
@@ -328,7 +328,7 @@
               return destination
             }
 
-            console.log(multiplyByTwo([1, 2, 3, 4, 5]))
+            console.log(timesTwo([1, 2, 3, 4, 5]))
               // -> '[2, 4, 6, 8, 10]'
             ```
 
@@ -377,7 +377,7 @@
                 i => i.toUpperCase() + "!"
               )
 
-            const multiplyByTwo = (input) =>
+            const timesTwo = (input) =>
               map(
                 input,
                 i => return i * 2
