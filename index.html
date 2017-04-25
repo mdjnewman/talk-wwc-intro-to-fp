@@ -42,8 +42,8 @@
           - Comparision of different paradigms
           - What is functional programming?
           - Purity
-          - Common higher-order functions
           - Declarative programming
+          - Common higher-order functions
           </script>
         </section>
         <section data-markdown>
@@ -173,7 +173,10 @@
           </section>
           <section data-markdown>
             <script type="text/template">
-            The above snippets of code aren't 'pure functions' ...
+            The above snippets of code
+
+            * are not 'pure functions' ...
+            * don't declare their intentions ...
             </script>
           </section>
         </section>
@@ -309,12 +312,9 @@
             evaluation of your program.
             </script>
           </section>
-        </section>
-
-        <section>
           <section data-markdown>
             <script type="text/template">
-            ## `multiplyByTwo` revisited
+            #### `multiplyByTwo` revisited
             </script>
           </section>
           <section data-markdown data-transition="none">
@@ -380,7 +380,7 @@
             const multiplyByTwo = (input) =>
               map(
                 input,
-                i => return i * 2)
+                i => return i * 2
               )
             ```
             </script>
@@ -398,52 +398,6 @@
           </section>
         </section>
 
-        <section>
-          <section data-markdown>
-            <script type="text/template">
-            ## Common higher-order functions
-            </script>
-          </section>
-          <section data-markdown>
-            <script type="text/template">
-            **`map`** is the name of a higher-order function that applies a given
-            function to each element of a list, returning a list of results
-            </script>
-          </section>
-          <section data-markdown>
-            <script type="text/template">
-            **`filter`** is a higher-order function that processes a collection to produce
-            a new collection containing exactly those elements of the original collection
-            for which a given predicate returns true
-            </script>
-          </section>
-          <section data-markdown>
-            <script type="text/template">
-            ```javascript
-            console.log([1, 2, 3, 4].filter(i => i % 2 == 0))
-            // -> [2, 4]
-            ```
-            </script>
-          </section>
-          <section data-markdown>
-            <script type="text/template">
-            *`reduce`* is a higher-order function that recombines elements of a
-            collection through use of a given combining operation
-            </script>
-          </section>
-          <section data-markdown>
-            <script type="text/template">
-            ```javascript
-            console.log(
-              [1, 2, 3, 4, 5].reduce(
-                (accumulator, i) => accumulator + i,
-                0
-              )
-            )
-            // -> 15
-            ```
-            </script>
-          </section>
         </section>
 
         <section>
@@ -479,18 +433,45 @@
               We're telling the computer what we want, and not how to get it
             </script>
           </section>
+        </section>
+
+        <section>
           <section data-markdown>
             <script type="text/template">
-              ### Why
+            ## Common higher-order functions
 
-              We abstract away concepts of iteration, transformation, filtering, and accumulation
+            Note:
+            we've seen `map` so far
             </script>
           </section>
           <section data-markdown>
             <script type="text/template">
-              ### Why
-
-              We get small independently testable functions that are more maintainable
+            ### Filter
+            ```javascript
+            console.log([1, 2, 3, 4].filter(i => i % 2 == 0))
+            // -> [2, 4]
+            ```
+            Note:
+            **`filter`** is a higher-order function that processes a collection to produce
+            a new collection containing exactly those elements of the original collection
+            for which a given predicate returns true
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            ### Reduce
+            ```javascript
+            console.log(
+              [1, 2, 3, 4, 5].reduce(
+                (accumulator, i) => accumulator + i,
+                0
+              )
+            )
+            // -> 15
+            ```
+            Note:
+            *`reduce`* is a higher-order function that recombines elements of a
+            collection through use of a given combining operation
             </script>
           </section>
         </section>
