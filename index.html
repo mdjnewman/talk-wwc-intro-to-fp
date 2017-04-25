@@ -107,17 +107,17 @@
             <script type="text/template">
             ### Functional
 
-            Increasingly large number of languages, including Clojure,
-            Scala and Haskell.
-
+            Clojure, Scala, Haskell, and increasingly more mainstream languages
+            provide first class functions, immutability and other constructs to
+            make FP easier.
             *Why?*
 
-            To abstract away from all state.
+            To allow us to abstract away all state.
             </script>
           </section>
           <section data-markdown>
             <script type="text/template">
-            Many languages allow the use of multiple paradigms at once.
+            Many languages allow the use of multiple paradigms simultaneously.
             </script>
           </section>
         </section>
@@ -150,7 +150,7 @@
             ### What's the problem with this?
             ```
             const calculateTax = (amount) => {
-              var taxRate = db.getTaxRate()
+              let taxRate = db.getTaxRate()
               return taxRate / amount * 100
             }
             ```
@@ -161,7 +161,7 @@
             ### What's the problem with this?
             ```
             const calculateTax = (amount, taxRate) => {
-              var tax = taxRate / amount * 100
+              let tax = taxRate / amount * 100
               db.addTotalTax(tax)
               return tax
             }
@@ -197,7 +197,7 @@
               <script type="text/template">
               ```javascript
               const multiplyByTwo = (numbers) => {
-                for(var i = 0; i < numbers.length; i++) {
+                for(let i = 0; i < numbers.length; i++) {
                   numbers[i] = numbers[i] * 2
                 }
                 return numbers
@@ -211,8 +211,8 @@
             <script type="text/template">
             ### An example ...
             <pre class="highlight javascript">
-            var oneToFive = [1, 2, 3, 4, 5]
-            var doubled = multiplyByTwo(oneToFive)
+            let oneToFive = [1, 2, 3, 4, 5]
+            let doubled = multiplyByTwo(oneToFive)
             console.log(doubled)   // -> '[2, 4, 6, 8, 10]'  ...  :)
             <span class="fragment">console.log(oneToFive) // -> '[2, 4, 6, 8, 10]'  ...  :(</span>
             </pre>
@@ -223,8 +223,8 @@
             ### An example ...
             <pre class="highlight javascript">
             const multiplyByTwo = (numbers) => {
-              var destination = []
-              for(var i = 0; i < numbers.length; i++) {
+              let destination = []
+              for(let i = 0; i < numbers.length; i++) {
                 destination.push(numbers[i] * 2)
               }
               return destination
@@ -236,8 +236,8 @@
             <script type="text/template">
             ### An example ...
             <pre class="highlight javascript">
-            var oneToFive = [1, 2, 3, 4, 5]
-            var doubled = multiplyByTwo(oneToFive)
+            let oneToFive = [1, 2, 3, 4, 5]
+            let doubled = multiplyByTwo(oneToFive)
             console.log(doubled)   // -> '[2, 4, 6, 8, 10]'  ...  :)
             console.log(oneToFive) // -> '[1, 2, 3, 4, 5]'   ...  :)
             </pre>
@@ -256,9 +256,9 @@
               // ...
             }
 
-            var tea1 = getMeATea()
-            var tea2 = getMeATea()
-            var tea3 = getMeATea()
+            let tea1 = getMeATea()
+            let tea2 = getMeATea()
+            let tea3 = getMeATea()
             ```
 
             Note:
@@ -278,9 +278,9 @@
               // ...
             }
 
-            var tea1 = getMeATea()
-            var tea2 = tea1
-            var tea3 = tea1
+            let tea1 = getMeATea()
+            let tea2 = tea1
+            let tea3 = tea1
             ```
             </script>
           </section>
@@ -289,14 +289,14 @@
             #### Referential transparency
             ```javascript
             const getMeATea = () => {
-              val cup = new Tea()
-              creditCard.charge(cup.price)
-              return cup
+              val tea = new Tea()
+              creditCard.charge(tea.price)
+              return tea
             }
 
-            var tea1 = getMeATea()
-            var tea2 = tea1
-            var tea3 = tea1
+            let tea1 = getMeATea()
+            let tea2 = tea1
+            let tea3 = tea1
             ```
             <span class="fragment">Free tea?!</span>
 
@@ -318,8 +318,8 @@
             <script type="text/template">
             ```javascript
             const multiplyByTwo = (input) => {
-              var destination = []
-              for(var i = 0; i < input.length; i++) {
+              let destination = []
+              for(let i = 0; i < input.length; i++) {
                 destination.push(input[i] * 2)
               }
               return destination
@@ -340,8 +340,8 @@
             <script type="text/template">
             ```javascript
             const shout = (input) => {
-              var destination = []
-              for(var i = 0; i < input.length; i++) {
+              let destination = []
+              for(let i = 0; i < input.length; i++) {
                 destination.push(input[i].toUpperCase() + "!")
               }
               return destination
@@ -356,8 +356,8 @@
             <script type="text/template">
             ```
             const map = (input, fn) => {
-              var destination = []
-              for(var i = 0; i < input.length; i++) {
+              let destination = []
+              for(let i = 0; i < input.length; i++) {
                 destination.push(fn(input[i]))
               }
               return destination
@@ -453,8 +453,8 @@
             <script type="text/template">
             What does this do?
             ```javascript
-            var n = 0;
-            var result = 0;
+            let n = 0;
+            let result = 0;
 
             while (n <= 10) {
               result += (n * n);
