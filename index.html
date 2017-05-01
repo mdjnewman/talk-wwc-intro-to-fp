@@ -256,60 +256,107 @@
           </section>
           <section data-markdown data-transition="none">
             <script type="text/template">
-            #### Referential transparency
-            ```javascript
-            const getMeATea = () => {
-              // ...
-            }
+            ### Referential transparency
 
-            let tea1 = getMeATea()
-            let tea2 = getMeATea()
-            let tea3 = getMeATea()
-            ```
-
-            Note:
-            Referential transparency means that an expression always evaluates to the same
+            Referentially transparent expressions always evaluate to the same
             result in any context, so you can replace an expression with its value
             anywhere you see the expression
 
+            Note:
             This makes it very easy to debug programs, as you can easily make subtitutions
             and be sure that you haven't changed the outcome of your program.
             </script>
           </section>
           <section data-markdown data-transition="none">
             <script type="text/template">
-            #### Referential transparency
+            #### Example one
             ```javascript
-            const getMeATea = () => {
-              // ...
-            }
+            const hello = "Hello, World"
 
-            let tea1 = getMeATea()
-            let tea2 = tea1
-            let tea3 = tea1
+            const r1 = hello.split("").reverse().join("")
+
+            const r2 = hello.split("").reverse().join("")
+
+            console.log(r1 === r2) // -> true
             ```
             </script>
           </section>
           <section data-markdown data-transition="none">
             <script type="text/template">
-            #### Referential transparency
+            #### Example one
             ```javascript
-            const getMeATea = () => {
-              val tea = new Tea()
-              creditCard.charge(tea.price)
-              return tea
-            }
+            // const hello = "Hello, World"
 
-            let tea1 = getMeATea()
-            let tea2 = tea1
-            let tea3 = tea1
+            const r1 = "Hello, World".split("").reverse().join("")
+
+            const r2 = "Hello, World".split("").reverse().join("")
+
+            console.log(r1 === r2) // -> true
             ```
-            <span class="fragment">Free tea?!</span>
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            #### Example one
 
-            Note:
-            So if `getMeATea` performs side effects, it's not longer referentially
-            transparent, and you can't use the substitution model to reason about the
-            evaluation of your program.
+            Replacing `hello` with its value doesn’t affect the outcome.
+
+            `hello` is referentially transparent!
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            #### Example two
+            ```javascript
+            const helloArray = ["Hello"]
+
+            const y = helloArray.append(", world!")
+
+            const c1 = y.join("")
+            const c2 = y.join("")
+
+            console.log(c1) // -> "Hello, world!"
+            console.log(c2) // -> "Hello, world!"
+            console.log(c1 === c2) // -> true
+            ```
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            #### Example two
+            ```javascript
+            const helloArray = ["Hello"]
+
+            // const y = helloArray.append(", world!")
+
+            const c1 = helloArray.append(", world!").join("")
+            const c2 = helloArray.append(", world!").join("")
+
+            console.log(c1) // -> "Hello, world!"
+            console.log(c2) // -> "Hello, world!, world!"
+            console.log(c1 === c2) // -> false
+            ```
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            #### Example two
+
+            Replacing `y` with its value **changes** the outcome.
+
+            `y` is not referentially transparent!
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            Note example two above requires a member on `Array` similar to the following:
+            ```javascript
+            Array.prototype.append = function (item) {
+              this.push(item)
+              return this
+            }
+            ```
+            (this isn't standard JS)
             </script>
           </section>
           <section data-markdown>
