@@ -236,6 +236,10 @@
               return destination
             }
             </pre>
+
+            Note:
+            Even though we're mutating `destination` here, the mutation is not
+            observable outside of this function, so it's still an improvement.
             </script>
           </section>
           <section data-markdown>
@@ -478,6 +482,12 @@
           <section data-markdown>
             <script type="text/template">
               We're telling the computer what we want, and not how to get it
+
+              Note:
+              SQL is another really common example of a declarative language.
+
+              Our `map` function is more declarative than telling the computer
+              to iterate over an array.
             </script>
           </section>
         </section>
@@ -531,15 +541,28 @@
           </section>
           <section data-markdown>
             <script type="text/template">
+            ### Prerequisites
+            ```bash
+            $ node --version
+            v6.11.0
+
+            $ npm --version
+            3.10.10
+
+            $ npm install -g functional-javascript-workshop
             ```
-            npm install -g functional-javascript-workshop@latest
-            functional-javascript
+            (exact version isn't important)
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            ```bash
+            $ functional-javascript
             ```
             </script>
           </section>
           <section>
             <pre>
-FUNCTIONAL JAVASCRIPT IS GOOD
 Select an exercise and hit Enter to begin
 ─────────────────────────────────────────────────────────
 » Hello World
@@ -561,7 +584,6 @@ Select an exercise and hit Enter to begin
 » Currying
 » Function Call
 ─────────────────────────────────────────────────────────
-EXIT
             </pre>
           </section>
         </section>
