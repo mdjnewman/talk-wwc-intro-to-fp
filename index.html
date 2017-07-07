@@ -219,6 +219,7 @@
             <pre class="highlight javascript">
             let oneToFive = [1, 2, 3, 4, 5]
             let doubled = timesTwo(oneToFive)
+
             console.log(doubled)   // -> '[2, 4, 6, 8, 10]'  ...  :)
             <span class="fragment">console.log(oneToFive) // -> '[2, 4, 6, 8, 10]'  ...  :(</span>
             </pre>
@@ -248,6 +249,7 @@
             <pre class="highlight javascript">
             let oneToFive = [1, 2, 3, 4, 5]
             let doubled = timesTwo(oneToFive)
+
             console.log(doubled)   // -> '[2, 4, 6, 8, 10]'  ...  :)
             console.log(oneToFive) // -> '[1, 2, 3, 4, 5]'   ...  :)
             </pre>
@@ -403,9 +405,6 @@
 
               Note:
               SQL is another really common example of a declarative language.
-
-              Our `map` function is more declarative than telling the computer
-              to iterate over an array.
             </script>
           </section>
         </section>
@@ -495,7 +494,7 @@
             <script type="text/template">
             ### Filter
             ```javascript
-            console.log([1, 2, 3, 4].filter(i => i % 2 == 0))
+            [1, 2, 3, 4].filter(i => i % 2 == 0)
             // -> [2, 4]
             ```
             Note:
@@ -508,12 +507,7 @@
             <script type="text/template">
             ### Reduce
             ```javascript
-            console.log(
-              [1, 2, 3, 4, 5].reduce(
-                (accumulator, i) => accumulator + i,
-                0
-              )
-            )
+            [1, 2, 3, 4, 5].reduce((acc, i) => acc + i, 0)
             // -> 15
             ```
             Note:
