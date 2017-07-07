@@ -43,7 +43,7 @@
           - What is functional programming?
           - Purity
           - Declarative programming
-          - Common higher-order functions
+          - Higher-order functions
           </script>
         </section>
         <section data-markdown>
@@ -151,9 +151,9 @@
           <section data-markdown>
             <script type="text/template">
             ### What's the problem with this?
-            ```
+            ```javascript
             const calculateTax = (amount) => {
-              let taxRate = db.getTaxRate()
+              let taxRate = database.getTaxRate()
               return taxRate / amount * 100
             }
             ```
@@ -162,10 +162,10 @@
           <section data-markdown>
             <script type="text/template">
             ### What's the problem with this?
-            ```
+            ```javascript
             const calculateTax = (amount, taxRate) => {
               let tax = taxRate / amount * 100
-              db.addTotalTax(tax)
+              database.addTotalTax(tax)
               return tax
             }
             ```
@@ -258,7 +258,7 @@
             Pure functions are easier to design, test and understand
             </script>
           </section>
-          <section data-markdown data-transition="none">
+          <section data-markdown>
             <script type="text/template">
             ### Referential transparency
 
@@ -312,9 +312,9 @@
             <script type="text/template">
             #### Example two
             ```javascript
-            const helloArray = ["Hello"]
+            const words = ["Hello"]
 
-            const y = helloArray.append(", world!")
+            const y = words.append(", world!")
 
             const c1 = y.join("")
             const c2 = y.join("")
@@ -329,12 +329,12 @@
             <script type="text/template">
             #### Example two
             ```javascript
-            const helloArray = ["Hello"]
+            const words = ["Hello"]
 
-            // const y = helloArray.append(", world!")
+            // const y = words.append(", world!")
 
-            const c1 = helloArray.append(", world!").join("")
-            const c2 = helloArray.append(", world!").join("")
+            const c1 = words.append(", world!").join("")
+            const c2 = words.append(", world!").join("")
 
             console.log(c1) // -> "Hello, world!"
             console.log(c2) // -> "Hello, world!, world!"
@@ -365,90 +365,6 @@
             </script>
           </section>
           -->
-          <section data-markdown>
-            <script type="text/template">
-            #### `timesTwo` revisited
-            </script>
-          </section>
-          <section data-markdown data-transition="none">
-            <script type="text/template">
-            ```javascript
-            const timesTwo = (input) => {
-              let destination = []
-              for(let i = 0; i < input.length; i++) {
-                destination.push(input[i] * 2)
-              }
-              return destination
-            }
-
-            console.log(timesTwo([1, 2, 3, 4, 5]))
-              // -> '[2, 4, 6, 8, 10]'
-            ```
-
-            Note:
-            This is now a pure function, in that its output depends solely on its
-            input and it has no side effects observable from outside the function.
-
-            But, there is state here - `destination` and `i` are mutated.
-            </script>
-          </section>
-          <section data-markdown data-transition="none">
-            <script type="text/template">
-            ```javascript
-            const shout = (input) => {
-              let destination = []
-              for(let i = 0; i < input.length; i++) {
-                destination.push(input[i].toUpperCase() + "!")
-              }
-              return destination
-            }
-
-            console.log(shout(["just", "some", "words"]))
-              // -> '["JUST!", "SOME!", "WORDS!"]'
-            ```
-            </script>
-          </section>
-          <section data-markdown data-transition="none">
-            <script type="text/template">
-            ```
-            const map = (input, fn) => {
-              let destination = []
-              for(let i = 0; i < input.length; i++) {
-                destination.push(fn(input[i]))
-              }
-              return destination
-            }
-            ```
-            </script>
-          </section>
-          <section data-markdown data-transition="none">
-            <script type="text/template">
-            ```javascript
-            const shout = (input) =>
-              map(
-                input,
-                i => i.toUpperCase() + "!"
-              )
-
-            const timesTwo = (input) =>
-              map(
-                input,
-                i => return i * 2
-              )
-            ```
-            </script>
-          </section>
-          <section data-markdown>
-            <script type="text/template">
-            A higher order function is one that takes one or more functions as
-            input, or returns a function.
-
-            Note:
-            Higher order functions allow us to be more declarative in our code,
-            we just say 'apply this function to the elements in this list',
-            rather than specifying exactly how that should happen.
-            </script>
-          </section>
         </section>
 
         </section>
@@ -497,10 +413,82 @@
         <section>
           <section data-markdown>
             <script type="text/template">
-            ## Common higher-order functions
+            ## Higher-order functions
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            ```javascript
+            const timesTwo = (input) => {
+              let destination = []
+              for(let i = 0; i < input.length; i++) {
+                destination.push(input[i] * 2)
+              }
+              return destination
+            }
+
+            console.log(timesTwo([1, 2, 3, 4, 5]))
+              // -> '[2, 4, 6, 8, 10]'
+            ```
 
             Note:
-            we've seen `map` so far
+            Remember our `timesTwo` function?
+
+            This is now a pure function, in that its output depends solely on its
+            input and it has no side effects observable from outside the function.
+
+            But, there is state here - `destination` and `i` are mutated.
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            ```javascript
+            const shout = (input) => {
+              let destination = []
+              for(let i = 0; i < input.length; i++) {
+                destination.push(input[i].toUpperCase() + "!")
+              }
+              return destination
+            }
+
+            console.log(shout(["just", "some", "words"]))
+              // -> '["JUST!", "SOME!", "WORDS!"]'
+            ```
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            ```javascript
+            const map = (input, fn) => {
+              let destination = []
+              for(let i = 0; i < input.length; i++) {
+                destination.push(fn(input[i]))
+              }
+              return destination
+            }
+            ```
+            </script>
+          </section>
+          <section data-markdown data-transition="none">
+            <script type="text/template">
+            ```javascript
+            const shout =
+              (input) => map(input, i => i.toUpperCase() + "!")
+
+            const timesTwo =
+              (input) => map(input, i => i * 2)
+            ```
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+            A higher order function is one that takes one or more functions as
+            input, or returns a function.
+
+            Note:
+            Higher order functions allow us to be more declarative in our code,
+            we just say 'apply this function to the elements in this list',
+            rather than specifying exactly how that should happen.
             </script>
           </section>
           <section data-markdown>
