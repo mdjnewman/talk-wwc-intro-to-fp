@@ -605,6 +605,14 @@ Select an exercise and hit Enter to begin
     <script src="js/reveal.js"></script>
 
     <script>
+      function sendSlideView(event) {
+        var l = location.href
+          .split(location.host)[1]
+          .replace(location.hash, "#/" + (event.indexh ? event.indexh : "") + (event.indexv ? "/" + event.indexv : ""));
+        ga('set', 'page', l);
+        ga('send', 'pageview');
+      }
+
       // More info https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
         history: true,
@@ -623,13 +631,14 @@ Select an exercise and hit Enter to begin
         ]
       });
 
+      Reveal.addEventListener('ready', function( event ) {
+        sendSlideView(event);
+      });
+
       Reveal.addEventListener("slidechanged",function(event){
-        var l = location.href
-          .split(location.host)[1]
-          .replace(location.hash, "#/" + (event.indexh ? event.indexh : "") + (event.indexv ? "/" + event.indexv : ""));
-        //debugger;
-        ga('set', 'page', l);
-        ga('send', 'pageview');
+        if (!event.previousSlide)
+          return;
+        sendSlideView(event);
       });
     </script>
     <script>
@@ -638,7 +647,6 @@ Select an exercise and hit Enter to begin
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
       ga('create', 'UA-37054299-1', 'auto');
-      ga('send', 'pageview');
     </script>
   </body>
 </html>
