@@ -1,0 +1,11 @@
+### Higher Order Functions
+
+<pre class="highlight js">
+const repeat = (operation, num) => {
+ <span class="fragment" data-fragment-index=0> if (num <= 0) return</span>
+ <span class="fragment" data-fragment-index=1> operation()</span>
+ <span class="fragment" data-fragment-index=2> return repeat(operation, --num)</span>
+}
+
+module.exports = repeat
+</pre>

@@ -1,0 +1,10 @@
+### Filter
+<pre class="highlight js">
+const getShortMessages = (messages) => {
+<span class="fragment" data-fragment-index=0>  return messages</span>
+<span class="fragment" data-fragment-index=1>    .map(i => i.message)</span>
+<span class="fragment" data-fragment-index=2>    .filter(i => i.length < 50)</span>
+}
+
+module.exports = getShortMessages
+</pre>

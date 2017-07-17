@@ -1,0 +1,16 @@
+
+### Reduce
+<pre class="highlight js">
+const countWords = (inputWords) => {
+  return inputWords
+<span class="fragment" data-fragment-index=0>    .reduce(</span>
+<span class="fragment" data-fragment-index=2>      (acc, word) => {</span>
+<span class="fragment" data-fragment-index=3>        acc[word] = acc[word] + 1 || 1</span>
+<span class="fragment" data-fragment-index=3>        return acc</span>
+<span class="fragment" data-fragment-index=2>      },</span>
+<span class="fragment" data-fragment-index=1>      {}</span>
+<span class="fragment" data-fragment-index=0>    )</span>
+}
+
+module.exports = countWords
+</pre>

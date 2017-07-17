@@ -1,0 +1,14 @@
+### Recursion (1)
+
+<pre class="highlight js">
+const reduce = (arr, fn, initial) => {
+<span class="fragment" data-fragment-index=1>   const run = (i, acc) => {</span>
+<span class="fragment" data-fragment-index=2>       if (i === arr.length) return acc</span>
+<span class="fragment" data-fragment-index=3>       return run(i + 1, fn(acc, arr[i], i, arr))</span>
+<span class="fragment" data-fragment-index=1>   }</span>
+
+<span class="fragment" data-fragment-index=1>   return run(0, initial)</span>
+}
+
+module.exports = reduce
+</pre>

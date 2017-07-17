@@ -570,6 +570,14 @@ Select an exercise and hit Enter to begin
 ─────────────────────────────────────────────────────────
             </pre>
           </section>
+
+          <section data-markdown="functional-javascript-examples/hello-world.html"></section>
+          <section data-markdown="functional-javascript-examples/higher-order-functions.html"></section>
+          <section data-markdown="functional-javascript-examples/map.html"></section>
+          <section data-markdown="functional-javascript-examples/filter.html"></section>
+          <section data-markdown="functional-javascript-examples/every-some.html"></section>
+          <section data-markdown="functional-javascript-examples/reduce.html"></section>
+          <section data-markdown="functional-javascript-examples/basic-recursion.html"></section>
         </section>
 
         <section>
@@ -608,7 +616,7 @@ Select an exercise and hit Enter to begin
       function sendSlideView(event) {
         var l = location.href
           .split(location.host)[1]
-          .replace(location.hash, "#/" + (event.indexh ? event.indexh : "") + (event.indexv ? "/" + event.indexv : ""));
+          .replace(location.hash, '#/' + (event.indexh ? event.indexh : '') + (event.indexv ? "/" + event.indexv : ""));
         ga('set', 'page', l);
         ga('send', 'pageview');
       }
@@ -635,7 +643,7 @@ Select an exercise and hit Enter to begin
         sendSlideView(event);
       });
 
-      Reveal.addEventListener("slidechanged",function(event){
+      Reveal.addEventListener('slidechanged',function(event){
         if (!event.previousSlide)
           return;
         sendSlideView(event);

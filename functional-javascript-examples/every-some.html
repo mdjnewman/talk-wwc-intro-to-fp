@@ -1,0 +1,11 @@
+### Every Some
+<pre class="highlight js">
+const checkUsersValid = (goodUsers) => {
+<span class="fragment" data-fragment-index=1>  return (submittedUsers) => {</span>
+<span class="fragment" data-fragment-index=2>    return submittedUsers</span>
+<span class="fragment" data-fragment-index=3>      .every(s => goodUsers.some(g => g.id === s.id))</span>
+<span class="fragment" data-fragment-index=1>  }</span>
+}
+
+module.exports = checkUsersValid
+</pre>
